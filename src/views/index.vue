@@ -88,7 +88,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted, watch } from "vue"
+import { reactive, ref, onMounted, watch, computed } from "vue"
 import axios from "axios"
 
 const filter = reactive({
@@ -156,14 +156,16 @@ const takeOptions = async () => {
 }
 
 const reset = () => {
+    if (filter.selectValue !== "" || area.from !== null || area.to !== null) {
+        takeHome()
+    }
     filter.room1 = true
     filter.room2 = true
     filter.room3 = true
     filter.room4 = true
     filter.selectValue = ""
-    area.from = 0
-    area.to = 0
-    takeHome()
+    area.from = null
+    area.to = null
 }
 
 const hoveredRoom = ref("")
